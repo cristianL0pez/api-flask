@@ -36,21 +36,23 @@ def get_empleados():
 # Endpoint para agregar un nuevo empleado
 @app.route('/empleados', methods=['POST'])
 def add_empleado():
-    data = request.get_json()
-    if not data or not all(key in data for key in ('nombre', 'puesto', 'salario')):
+    nombre = request.form.get('nombre')
+    puesto = request.form.get('puesto')
+    salario = request.form.get('salario')
+
+    if not nombre or not puesto or not salario:
         return jsonify({'error': 'Datos incompletos'}), 400
 
     nuevo_empleado = Empleado(
-        nombre=data['nombre'],
-        puesto=data['puesto'],
-        salario=data['salario']
+        nombre=nombre,
+        puesto=puesto,
+        salario=salario
     )
 
     db.session.add(nuevo_empleado)
     db.session.commit()
 
     return jsonify(nuevo_empleado.to_dict()), 201
-
 @app.route('/agregar-empleado', methods=['GET'])
 def mostrar_formulario():
-    return render_template('templates/agregar_empleado.html')
+    return render_template('agregar_empleado.html')
