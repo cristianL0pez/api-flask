@@ -25,7 +25,7 @@ with app.app_context():
 # Ruta de ejemplo
 @app.route('/')
 def index():
-    return "¡Bienvenido a la API de gestión de empleados!"
+    return "¡Version 0.01 (de 10000000)!"
 
 # Endpoint para obtener todos los empleados
 @app.route('/empleados', methods=['GET'])
